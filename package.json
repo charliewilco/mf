@@ -1,5 +1,5 @@
 {
-  "name": "mf-cli",
+  "name": "y",
   "version": "0.0.1",
   "description": "A nicer touch",
   "preferGlobal": true,
@@ -30,5 +30,13 @@
     "babel-eslint": "^7.1.1",
     "execa": "^0.6.0",
     "standard": "^8.6.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charlespeters/mf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/charlespeters/mf/issues"
+  },
+  "homepage": "https://github.com/charlespeters/mf#readme"
 }
