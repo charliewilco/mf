@@ -1,0 +1,34 @@
+{
+  "name": "mf-cli",
+  "version": "0.0.1",
+  "description": "A nicer touch",
+  "preferGlobal": true,
+  "main": "index.js",
+  "bin": {
+    "mf": "./cli.js"
+  },
+  "scripts": {
+    "lint": "standard index.js cli.js | snazzy",
+    "pretest": "npm run lint",
+    "test": "ava"
+  },
+  "keywords": [
+    "touch",
+    "cli",
+    "utility"
+  ],
+  "author": "charles peters <charlespeters42@gmail.com> (https://charlespeters.net)",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "fs-extra": "^2.0.0",
+    "meow": "^3.7.0",
+    "node-emoji": "^1.5.1"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "babel-eslint": "^7.1.1",
+    "execa": "^0.6.0",
+    "standard": "^8.6.0"
+  }
+}
