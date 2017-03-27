@@ -1,6 +1,7 @@
-import test from 'ava'
+// import test from 'ava'
+// import fs from 'fs'
+
 import execa from 'execa'
-import fs from 'fs'
 import MF from '.'
 
 const cli = execa('./cli.js', ['./dist/foo.js', './dist/bar.js', './dist/baz.js'])
@@ -22,10 +23,10 @@ const cli = execa('./cli.js', ['./dist/foo.js', './dist/bar.js', './dist/baz.js'
 // })
 //
 
-test('file', async t => {
-  const { stdout } = await execa('./cli.js', ['test.js'])
-  t.true(stdout.length > 0)
-})
+// test('file', async t => {
+//   const { stdout } = await execa('./cli.js', ['test.js'])
+//   t.true(stdout.length > 0)
+// })
 
 // test('stdin', async t => {
 //   const { stdout } = await cli, {

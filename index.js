@@ -1,6 +1,6 @@
 const { createFile } = require('fs-extra')
-const chalk = require('chalk')
 const { emojify } = require('node-emoji')
+const chalk = require('chalk')
 
 // TODO:
 // use promises... or async / await or something
@@ -11,7 +11,7 @@ function touch (files) {
     process.exit()
   }
 
-  // Response Message
+  // Response Message Formatting
 
   const highlight = chalk.yellow
   const msg = emojify('created :thumbsup:')
@@ -19,11 +19,11 @@ function touch (files) {
 
   // Create the file & process the input
 
-  const touch = f => createFile(f, err => {
+  const fileCreation = f => createFile(f, err => {
     err ? errorOut(err) : wr(f)
   })
 
-  return files.map(f => touch(f))
+  return files.map(f => fileCreation(f))
 }
 
 const MF = x => touch(x)
