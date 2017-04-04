@@ -1,6 +1,6 @@
 {
-  "name": "y",
-  "version": "0.0.1",
+  "name": "mf-cli",
+  "version": "0.1.0",
   "description": "A nicer touch",
   "preferGlobal": true,
   "main": "index.js",
