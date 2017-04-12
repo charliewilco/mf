@@ -1,0 +1,95 @@
+{
+  "name": "charlespeters/mf",
+  "version": "0.1.4",
+  "libraries": {
+    "xv": "^1.1.25"
+  },
+  "title": "",
+  "branch": "master",
+  "style": {
+    "name": "Brutalist",
+    "componentSet": {
+      "nav": "nav/BasicNav",
+      "header": "header/BasicHeader",
+      "article": "article/MarkdownArticle",
+      "footer": "footer/BasicFooter"
+    },
+    "fontFamily": "Consolas, \"Liberation Mono\", Menlo, Courier, monospace",
+    "heading": {},
+    "typeScale": [
+      48,
+      32,
+      20,
+      18,
+      16,
+      14,
+      12
+    ],
+    "layout": {
+      "maxWidth": 1024,
+      "fluid": true
+    },
+    "colors": {
+      "text": "#333",
+      "background": "#fff",
+      "primary": "#666",
+      "secondary": "#888",
+      "highlight": "#1f80ff",
+      "muted": "#f6f6f6",
+      "border": "#eee"
+    }
+  },
+  "content": [
+    {
+      "component": "nav",
+      "links": [
+        {
+          "href": "https://github.com/charlespeters/mf",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://npmjs.com/package/mf-cli",
+          "text": "npm"
+        }
+      ]
+    },
+    {
+      "component": "header",
+      "heading": "mf",
+      "subhead": "A nicer touch",
+      "children": [
+        {
+          "component": "ui/TweetButton",
+          "text": "mf: A nicer touch",
+          "url": null
+        },
+        {
+          "component": "ui/GithubButton",
+          "user": "charlespeters",
+          "repo": "mf"
+        }
+      ],
+      "text": "v0.1.0"
+    },
+    {
+      "component": "article",
+      "metadata": {
+        "source": "github.readme"
+      },
+      "html": "\n<p>Nicer <code>touch</code> utility</p>\n<h2>Installation &amp; Usage</h2>\n<pre>npm i -g mf-cli</pre><p>Call the command <code>mf</code> and pass a single argument to it, the name and path of the file(s) you&apos;d like create</p>\n<pre>mf ./src/components/Button.js ./src/actions/index.js</pre><h2>Rationale</h2>\n<p>One command line thing I need to do all the time is make a file. In Atom when you make a new file, it&apos;ll make a new directory if it doesn&apos;t exist. For example if you&apos;re in Atom and make <code>src/components/Button.js</code> and the <code>components</code> directory doesn&apos;t exist, it&apos;ll just create it by default.</p>\n<p>But on the command line, to do this, you&apos;d need to <code>mkdir src/components &amp;&amp; touch components/Button.js</code> to make that happen. It&apos;s a little thing, but when you do a little thing 20 or 30 times a day, it becomes annoying. It&apos;s even worse in Vim; and honestly it&apos;s one huge thing I feel is lacking in Vim.</p>\n<p>What I&apos;m attempting to do here is to make a little CLI utility to do something like <code>mf ./src/components/Button.js</code></p>\n<h2>License</h2>\n"
+    },
+    {
+      "component": "footer",
+      "links": [
+        {
+          "href": "https://github.com/charlespeters/mf",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://github.com/charlespeters",
+          "text": "charlespeters"
+        }
+      ]
+    }
+  ]
+}
