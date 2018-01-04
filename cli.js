@@ -17,11 +17,6 @@ let help = `
     ./component/Button/index.js created 👍
 `
 
-console.log(args)
+const app = () => (args.help || args.h) ? console.log(help) :  MF(args._)
 
-if (args.help || args.h) {
-	return console.log(help)
-} else {
-	return MF(args._)
-
-}
+app()
