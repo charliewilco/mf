@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 'use strict'
 
-const meow = require('meow')
 const MF = require('.')
+const mri = require('mri')
 
-const cli = meow(`
+const args = mri(process.argv.slice(2), { boolean: ['h', 'help'] })
+
+let help = `
   Usage
     $ mf <input>
 
   Examples
     $ mf ./component/Button/index.js
     ./component/Button/index.js created 👍
-`)
+`
 
-MF(cli.input)
+const app = () => (args.help || args.h ? console.log(help) : MF(args._))
+
+app()

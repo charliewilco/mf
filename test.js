@@ -1,37 +1,18 @@
-// import test from 'ava'
-// import fs from 'fs'
+const execa = require('execa')
+const fs = require('fs')
+const del = require('del')
+const MF = require('.')
 
-import execa from 'execa'
-import MF from '.'
+describe('MF', () => {
+	const cli = execa('./cli.js', ['./dist/foo.js', './dist/bar.js', './dist/baz.js'])
 
-const cli = execa('./cli.js', ['./dist/foo.js', './dist/bar.js', './dist/baz.js'])
+	it('runs and has standard out with emoji', () => {
+		cli.then(r => expect(r.stdout).toContain('👍'))
+	})
 
-// const fs = require('fs')
-// const files = fs.readdir('./dist').length
+	it('produces files', () => {
+		fs.readdir('./dist', (err, files) => expect(files).toHaveLength(3))
+	})
 
-// describe('create a file', () => {
-//   it('should be called', () => {
-//     let mffun = jest.fn()
-//
-//     MF(mffun, 'file.py')
-//     expect(MF).toHaveBeenCalled()
-//   })
-//
-//   it('should\'ve made files', () => {
-//     expect(cli).toHaveBeenCalledWith('cli', ['./dist/foo.js'])
-//   })
-// })
-//
-
-// test('file', async t => {
-//   const { stdout } = await execa('./cli.js', ['test.js'])
-//   t.true(stdout.length > 0)
-// })
-
-// test('stdin', async t => {
-//   const { stdout } = await cli, {
-//     input: fs.createReadStream('test.js')
-//   })
-//
-//   t.is(parseInt(stdout, 10), gzipSize.sync(a))
-// })
+	afterAll(() => del(['dist/']))
+})

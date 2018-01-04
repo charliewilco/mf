@@ -5,13 +5,20 @@ Nicer `touch` utility
 ## Installation & Usage
 
 ```sh
-npm i -g mf-cli
+yarn global add mf-cli
 ```
 
 Call the command `mf` and pass a single argument to it, the name and path of the file(s) you'd like create
 
 ```sh
 mf ./src/components/Button.js ./src/actions/index.js
+```
+
+Output: 
+
+```sh
+./src/components/Button.js created 👍
+./src/actions/index.js created 👍
 ```
 
 ## Rationale
