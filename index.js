@@ -2,13 +2,10 @@ const { createFile } = require('fs-extra')
 const { emojify } = require('node-emoji')
 const chalk = require('chalk')
 
-// TODO:
-// use promises... or async / await or something
-
 function touch (files) {
   const errorOut = err => {
-    console.log(err)
-    process.exit()
+	  process.stdout.write(chalk.red(emojify(`${err} :rotating_light:`)))
+	  process.exit()
   }
 
   // Response Message Formatting
