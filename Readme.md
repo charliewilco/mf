@@ -14,6 +14,8 @@ Call the command `mf` and pass a single argument to it, the name and path of the
 mf ./src/components/Button.js ./src/actions/index.js
 ```
 
+Output: 
+
 ```sh
 ./src/components/Button.js created 👍
 ./src/actions/index.js created 👍
