@@ -8,9 +8,8 @@
     "mf": "./cli.js"
   },
   "scripts": {
-    "lint": "standard index.js cli.js | snazzy",
-    "pretest": "npm run lint",
-    "test": "ava"
+    "lint": "prettier ./*.js -l",
+    "test": "jest"
   },
   "keywords": [
     "touch",
@@ -26,11 +25,18 @@
     "node-emoji": "^1.5.1"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
-    "babel-eslint": "^7.1.1",
+    "del": "^3.0.0",
     "execa": "^0.6.0",
-    "prettier": "^1.9.2",
-    "standard": "^8.6.0"
+    "jest": "^22.0.4",
+    "prettier": "^1.9.2"
+  },
+  "prettier": {
+    "printWidth": 95,
+    "semi": false,
+    "singleQuote": true,
+    "useTabs": true,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true
   },
   "repository": "charlespeters/mf",
   "bugs": {

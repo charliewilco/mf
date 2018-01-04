@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
-
 const MF = require('.')
 const mri = require('mri')
-
 
 const args = mri(process.argv.slice(2), { boolean: ['h', 'help'] })
 
@@ -17,6 +15,6 @@ let help = `
     ./component/Button/index.js created 👍
 `
 
-const app = () => (args.help || args.h) ? console.log(help) :  MF(args._)
+const app = () => (args.help || args.h ? console.log(help) : MF(args._))
 
 app()
