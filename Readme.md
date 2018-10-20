@@ -1,5 +1,7 @@
 # MF
 
+[![Build Status](https://travis-ci.org/charliewilco/mf.svg?branch=master)](https://travis-ci.org/charliewilco/mf)
+
 Nicer `touch` utility
 
 ## Installation & Usage
@@ -14,7 +16,7 @@ Call the command `mf` and pass a single argument to it, the name and path of the
 mf ./src/components/Button.js ./src/actions/index.js
 ```
 
-Output: 
+Output:
 
 ```sh
 ./src/components/Button.js created 👍
