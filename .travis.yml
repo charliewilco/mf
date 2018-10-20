@@ -6,4 +6,6 @@ cache:
 install:
   - yarn
 script:
+  - yarn build
+  - chmod +x dist/cli.js
   - yarn test

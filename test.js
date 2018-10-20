@@ -1,18 +1,24 @@
 const execa = require("execa");
 const fs = require("fs");
 const del = require("del");
-const MF = require(".");
+const { MF } = require("./dist/index.js");
+
+const FILES = ["foo.js", "bar.js", "baz.js"];
+
+const LOCATION_FILES = FILES.map(f => `./dist/${f}`);
 
 describe("MF", () => {
-  const cli = execa("./cli.js", ["./dist/foo.js", "./dist/bar.js", "./dist/baz.js"]);
-
-  it("runs and has standard out with emoji", () => {
-    cli.then(r => expect(r.stdout).toContain("👍"));
+  it("runs and has standard out with emoji", async () => {
+    const result = await execa("./dist/cli.js", LOCATION_FILES);
+    expect(result.stdout).toContain("🌈");
+    expect(result.stdout).toContain("👍");
   });
 
   it("produces files", () => {
-    fs.readdir("./dist", (err, files) => expect(files).toHaveLength(3));
+    const files = fs.readdirSync("./dist");
+
+    FILES.forEach(f => expect(files).toContain(f));
   });
 
-  afterAll(() => del(["dist/"]));
+  afterAll(() => del(LOCATION_FILES));
 });
