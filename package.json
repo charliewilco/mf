@@ -1,6 +1,6 @@
 {
   "name": "mf-cli",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A nicer touch",
   "preferGlobal": true,
   "main": "./dist/index.js",
