@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "A nicer touch",
   "preferGlobal": true,
-  "main": "index.js",
+  "main": "./dist/index.js",
   "bin": {
-    "mf": "./cli.js"
+    "mf": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
     "lint": "prettier ./src/*.ts -l",
+    "prepublish": "yarn build",
     "test": "jest"
   },
   "keywords": [
