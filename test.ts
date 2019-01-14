@@ -1,9 +1,9 @@
-const execa = require("execa");
-const fs = require("fs");
-const del = require("del");
-const { MF } = require("./dist/index.js");
+import * as execa from "execa";
+import * as fs from "fs";
+import * as del from "del"
+import { MF } from "./src";
 
-const FILES = ["foo.js", "bar.js", "baz.js"];
+const FILES: string[] = ["foo.js", "bar.js", "baz.js"];
 
 const LOCATION_FILES = FILES.map(f => `./dist/${f}`);
 
