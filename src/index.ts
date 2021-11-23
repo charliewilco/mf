@@ -1,27 +1,54 @@
-const { createFile } = require("fs-extra");
-const { emojify } = require("node-emoji");
-const chalk = require("chalk");
+import fs from "fs/promises";
+import path from "path";
+import hasEmoji from "has-emoji";
+import makeDir from "make-dir";
+import pc from "picocolors";
 
-function touch(files: string[]) {
-  const errorOut = (err: Error) => {
-    process.stdout.write(chalk.red(emojify(`${err} :rotating_light:`)));
-    process.exit();
-  };
+async function ensureFile(file: string) {
+  try {
+    const stat = await fs.stat(file);
+    if (stat.isFile()) {
+      return;
+    }
+  } catch (err) {}
 
-  // Response Message Formatting
+  const dir = path.dirname(file);
 
-  const highlight = chalk.yellow;
-  const msg = emojify("created :rainbow: :thumbsup:");
-  const wr = (f: string) => process.stdout.write(`${highlight(f)} ${msg}\n`);
+  try {
+    const stat = await fs.stat(dir);
+    if (!stat.isDirectory()) {
+      // parent is not a directory
+      // This is just to cause an internal ENOTDIR error to be thrown
+      await fs.readdir(dir);
+    }
+  } catch (err) {
+    if (err && err.code === "ENOENT") {
+      await makeDir(dir);
+    } else {
+      throw new Error(err);
+    }
+  }
 
-  // Create the file & process the input
-
-  const fileCreation = (file: string) =>
-    createFile(file, (err: Error) => {
-      err ? errorOut(err) : wr(file);
-    });
-
-  return files.map(f => fileCreation(f));
+  fs.writeFile(file, "");
 }
 
-export const MF = (files: string[]) => touch(files);
+export async function makeFile(files: string[]) {
+  const { red, yellow } = pc.createColors();
+  const enabledEmoji = hasEmoji("🌈");
+
+  const msg = enabledEmoji ? "created! 🌈 👍" : "created";
+
+  // Create the file & process the input
+  await Promise.all(
+    files.map(async (f) => {
+      try {
+        await ensureFile(f);
+        process.stdout.write(`${yellow(f)} ${msg}\n`);
+      } catch (err) {
+        const errorMessage = enabledEmoji ? "🚦" : ":(";
+        process.stdout.write(red(`${err} ${errorMessage}`));
+        process.exit();
+      }
+    })
+  );
+}

@@ -13,33 +13,24 @@
     "prepublish": "yarn build",
     "test": "jest"
   },
-  "keywords": [
-    "touch",
-    "cli",
-    "utility"
-  ],
-  "author": "charles peters <charlespeters42@gmail.com> (https://charlespeters.net)",
+  "keywords": ["touch", "cli", "utility"],
+  "author": "Charlie ⚡️",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.4.2",
-    "fs-extra": "^7.0.1",
-    "mri": "^1.1.4",
-    "node-emoji": "^1.5.1"
+    "arg": "^5.0.1",
+    "has-emoji": "^2.0.0",
+    "make-dir": "^3.1.0",
+    "picocolors": "^1.0.0"
   },
   "devDependencies": {
-    "@types/del": "^3.0.1",
-    "@types/execa": "^0.9.0",
-    "@types/fs-extra": "^5.0.4",
-    "@types/jest": "^23.3.12",
-    "@types/mri": "^1.1.0",
-    "@types/node": "^10.12.18",
-    "@types/node-emoji": "^1.8.0",
-    "del": "^3.0.0",
-    "execa": "^1.0.0",
-    "jest": "^23.6.0",
-    "prettier": "^1.15.3",
-    "ts-jest": "^23.10.5",
-    "typescript": "^3.2.2"
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.9",
+    "del": "^6.0.0",
+    "execa": "^6.0.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.2"
   },
   "jest": {
     "preset": "ts-jest",
@@ -50,9 +41,9 @@
     "bracketSpacing": true,
     "jsxBracketSameLine": true
   },
-  "repository": "charlespeters/mf",
+  "repository": "charliewilco/mf",
   "bugs": {
-    "url": "https://github.com/charlespeters/mf/issues"
+    "url": "https://github.com/charliewilco/mf/issues"
   },
-  "homepage": "https://github.com/charlespeters/mf#readme"
+  "homepage": "https://github.com/charliewilco/mf#readme"
 }
