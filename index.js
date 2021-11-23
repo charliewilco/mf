@@ -50,7 +50,6 @@ export async function makeFile(files) {
   // Create the file & process the input
   await Promise.all(
     files.map(async (f) => {
-      console.log(f);
       try {
         await ensureFile(f);
         process.stdout.write(`${yellow(f)} ${msg}\n`);
