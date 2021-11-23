@@ -1,0 +1,19 @@
+name: Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          version: 16.x
+      - name: Install Dependencies
+        run: yarn install  --frozen-lockfile
+      - name: Test
+        run: yarn test --ci --no-cache
+

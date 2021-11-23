@@ -1,4 +1,4 @@
-# MF
+# MF (make file)
 
 [![Build Status](https://travis-ci.org/charliewilco/mf.svg?branch=master)](https://travis-ci.org/charliewilco/mf)
 
@@ -7,7 +7,7 @@ Nicer `touch` utility
 ## Installation & Usage
 
 ```sh
-yarn global add mf-cli
+yarn global add @charliewilco/mf-cli
 ```
 
 Call the command `mf` and pass a single argument to it, the name and path of the file(s) you'd like create
