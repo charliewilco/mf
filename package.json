@@ -1,13 +1,10 @@
 {
-  "name": "mf-cli",
+  "name": "@charliewilco/mf-cli",
   "version": "3.0.0",
   "description": "A nicer touch",
   "type": "module",
   "preferGlobal": true,
-  "files": [
-    "./cli.js",
-    "./index.js"
-  ],
+  "files": ["./cli.js", "./index.js"],
   "bin": {
     "mf": "./cli.js"
   },
@@ -16,11 +13,7 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand --verbose",
     "_bin": "node ./cli.js"
   },
-  "keywords": [
-    "touch",
-    "cli",
-    "utility"
-  ],
+  "keywords": ["touch", "cli", "utility"],
   "author": "Charlie ⚡️",
   "license": "MIT",
   "dependencies": {
