@@ -2,16 +2,16 @@
   "name": "mf-cli",
   "version": "2.0.0",
   "description": "A nicer touch",
+  "type": "module",
   "preferGlobal": true,
-  "main": "./dist/index.js",
+  "files": ["./cli.js", "./index.js"],
   "bin": {
-    "mf": "./dist/cli.js"
+    "mf": "./cli.js"
   },
   "scripts": {
-    "build": "tsc",
     "lint": "prettier ./src/*.ts -l",
-    "prepublish": "yarn build",
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand --verbose",
+    "_bin": "node ./cli.js"
   },
   "keywords": ["touch", "cli", "utility"],
   "author": "Charlie ⚡️",
@@ -20,7 +20,8 @@
     "arg": "^5.0.1",
     "has-emoji": "^2.0.0",
     "make-dir": "^3.1.0",
-    "picocolors": "^1.0.0"
+    "picocolors": "^1.0.0",
+    "tiny-esm-test-runner": "^1.2.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
@@ -29,12 +30,10 @@
     "execa": "^6.0.0",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
-    "ts-jest": "^27.0.7",
     "typescript": "^4.5.2"
   },
   "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
+    "transform": {}
   },
   "prettier": {
     "printWidth": 95,

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 "use strict";
+// @ts-check
 
-import { makeFile } from ".";
+import { makeFile } from "./index.js";
 import arg from "arg";
 
 const args = arg({
@@ -18,13 +19,13 @@ let help = `
     ./component/Button/index.js created 👍
 `;
 
-const app = () => {
+const app = async () => {
   if (args["--help"] || args["-h"]) {
     console.log(help);
     return;
   }
 
-  makeFile(args._);
+  await makeFile(args._);
 };
 
 app();

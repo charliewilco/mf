@@ -1,10 +1,13 @@
+// @ts-check
 import fs from "fs/promises";
-import path from "path";
-import hasEmoji from "has-emoji";
-import makeDir from "make-dir";
+import { dirname } from "path";
 import pc from "picocolors";
 
-async function ensureFile(file: string) {
+/**
+ * @param {string} file
+ *
+ */
+async function ensureFile(file) {
   try {
     const stat = await fs.stat(file);
     if (stat.isFile()) {
@@ -12,7 +15,7 @@ async function ensureFile(file: string) {
     }
   } catch (err) {}
 
-  const dir = path.dirname(file);
+  const dir = dirname(file);
 
   try {
     const stat = await fs.stat(dir);
@@ -23,6 +26,7 @@ async function ensureFile(file: string) {
     }
   } catch (err) {
     if (err && err.code === "ENOENT") {
+      const { default: makeDir } = await import("make-dir");
       await makeDir(dir);
     } else {
       throw new Error(err);
@@ -32,15 +36,21 @@ async function ensureFile(file: string) {
   fs.writeFile(file, "");
 }
 
-export async function makeFile(files: string[]) {
+/**
+ * @param {string[]} files
+ *
+ */
+export async function makeFile(files) {
   const { red, yellow } = pc.createColors();
-  const enabledEmoji = hasEmoji("🌈");
+  const hasEmoji = await import("has-emoji");
+  const enabledEmoji = hasEmoji.default("🌈");
 
   const msg = enabledEmoji ? "created! 🌈 👍" : "created";
 
   // Create the file & process the input
   await Promise.all(
     files.map(async (f) => {
+      console.log(f);
       try {
         await ensureFile(f);
         process.stdout.write(`${yellow(f)} ${msg}\n`);
