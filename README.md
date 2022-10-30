@@ -1,3 +1,5 @@
+![terminal using `mf` utility](.github/workflows/og.png)
+
 # mf (make file)
 
 ![example workflow](https://github.com/charliewilco/mf/actions/workflows/node.yml/badge.svg)
