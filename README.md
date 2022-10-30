@@ -1,4 +1,4 @@
-![terminal using `mf` utility](.github/workflows/og.png)
+![terminal using `mf` utility](.github/og.png)
 
 # mf (make file)
 
