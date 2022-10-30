@@ -37,6 +37,10 @@ But on the command line, to do this, you'd need to `mkdir src/components && touc
 
 What I'm attempting to do here is to make a little CLI utility to do something like `mf ./src/components/Button.js`
 
+## Development
+
+This project is using JavaScript purely and uses `// @ts-check` to validate the project. This removes the need for a compliation step and makes testing and publishing much easier.
+
 ## License
 
 The Unlicense
