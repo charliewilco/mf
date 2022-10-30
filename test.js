@@ -8,7 +8,7 @@ const FILES = ["foo.js", "bar.js", "baz.js"];
 const LOCATION_FILES = FILES.map((f) => `./dist/${f}`);
 
 describe("makeFile", () => {
-	it("runs and has standard out with emoji", async () => {
+	test("runs and has standard out with emoji", async () => {
 		try {
 			const result = await execa("./cli.js", LOCATION_FILES);
 			expect(result.stdout).toContain("🌈");

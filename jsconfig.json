@@ -10,5 +10,5 @@
 		"esModuleInterop": true,
 		"allowJs": true
 	},
-	"include": ["index.js", "test/*", "cli.js"]
+	"include": ["index.js", "test.js", "cli.js"]
 }
