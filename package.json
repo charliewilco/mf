@@ -3,6 +3,7 @@
 	"version": "3.0.1",
 	"description": "A nicer touch",
 	"license": "Unlicense",
+	"repository": "charliewilco/mf",
 	"type": "module",
 	"preferGlobal": true,
 	"files": [
@@ -27,8 +28,7 @@
 		"arg": "^5.0.2",
 		"has-emoji": "^2.0.0",
 		"make-dir": "^3.1.0",
-		"picocolors": "^1.0.0",
-		"tiny-esm-test-runner": "^1.2.3"
+		"picocolors": "^1.0.0"
 	},
 	"devDependencies": {
 		"@types/jest": "^29.2.0",
@@ -40,7 +40,12 @@
 		"typescript": "^4.8.4"
 	},
 	"jest": {
-		"transform": {}
+		"transform": {},
+		"collectCoverageFrom": [
+			"**/*.{js,jsx}",
+			"!**/node_modules/**",
+			"!**/coverage/**"
+		]
 	},
 	"prettier": {
 		"useTabs": true,
@@ -48,7 +53,6 @@
 		"bracketSpacing": true,
 		"jsxBracketSameLine": true
 	},
-	"repository": "charliewilco/mf",
 	"bugs": {
 		"url": "https://github.com/charliewilco/mf/issues"
 	},

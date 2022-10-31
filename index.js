@@ -7,7 +7,7 @@ import pc from "picocolors";
  * @param {string} file
  *
  */
-async function ensureFile(file) {
+export async function ensureFile(file) {
 	try {
 		const stat = await fs.stat(file);
 		if (stat.isFile()) {

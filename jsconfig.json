@@ -8,7 +8,8 @@
 		"declaration": true,
 		"outDir": "dist",
 		"esModuleInterop": true,
-		"allowJs": true
+		"allowJs": true,
+		"moduleResolution": "node"
 	},
 	"include": ["index.js", "test.js", "cli.js"]
 }
