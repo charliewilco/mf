@@ -4,6 +4,7 @@
 	"description": "A nicer touch",
 	"license": "Unlicense",
 	"repository": "charliewilco/mf",
+	"author": "Charlie ⚡️ <charliewilc0@pm.me>",
 	"type": "module",
 	"preferGlobal": true,
 	"files": [
@@ -23,7 +24,6 @@
 		"cli",
 		"utility"
 	],
-	"author": "Charlie ⚡️",
 	"dependencies": {
 		"arg": "^5.0.2",
 		"has-emoji": "^2.0.0",
