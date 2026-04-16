@@ -11,6 +11,8 @@ import { ensureFile, hasEmoji } from "./index.js";
 const CLI_PATH = fileURLToPath(new URL("./cli.js", import.meta.url));
 
 /**
+ * Run filesystem tests in an isolated temp directory and always clean up afterward.
+ *
  * @template T
  * @param {(tempDir: string) => Promise<T>} run
  * @returns {Promise<T>}
@@ -76,6 +78,7 @@ describe("cli", () => {
 
 	test("creates requested files and reports success", async () => {
 		await withTempDir(async (tempDir) => {
+			// Use relative paths here to exercise the same workflow as a real CLI invocation.
 			const files = ["./dist/foo.js", "./dist/bar.js", "./dist/baz.js"];
 			const { stdout } = await execa(process.execPath, [CLI_PATH, ...files], {
 				cwd: tempDir,

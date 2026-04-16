@@ -15,6 +15,7 @@ const args = parseArgs({
 	},
 });
 
+// Keep help text inline with the CLI so usage changes stay close to the parser config.
 let help = `
   Usage
     $ mf <input>
@@ -24,13 +25,9 @@ let help = `
     ./component/Button/index.js created 👍
 `;
 
-const app = async () => {
-	if (args.values.help) {
-		console.log(help);
-		return;
-	}
-
+if (args.values.help) {
+	console.log(help);
+} else {
+	// Forward raw positional paths directly to the library entrypoint.
 	await makeFile(args.positionals);
-};
-
-app();
+}

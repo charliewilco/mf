@@ -18,7 +18,7 @@
 		"mf": "./cli.js"
 	},
 	"scripts": {
-		"lint": "prettier . --check",
+		"lint": "npx prettier . --check",
 		"test": "node --test test.js",
 		"_bin": "node ./cli.js"
 	},
