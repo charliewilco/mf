@@ -1,15 +1,17 @@
 {
 	"compilerOptions": {
-		"lib": ["es2019"],
-		"target": "ES5",
-		"module": "ESNext",
-		"noImplicitAny": true,
-		"sourceMap": true,
-		"declaration": true,
-		"outDir": "dist",
-		"esModuleInterop": true,
+		"target": "ES2024",
+		"lib": ["ES2024"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"types": ["node"],
 		"allowJs": true,
-		"moduleResolution": "node"
+		"checkJs": true,
+		"noEmit": true,
+		"noImplicitAny": true,
+		"verbatimModuleSyntax": true,
+		"skipLibCheck": true
 	},
-	"include": ["index.js", "test.js", "cli.js"]
+	"include": ["*.js"],
+	"exclude": ["dist", "node_modules"]
 }
