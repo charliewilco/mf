@@ -6,6 +6,9 @@
 	"repository": "charliewilco/mf",
 	"author": "Charlie ⚡️ <charliewilc0@pm.me>",
 	"type": "module",
+	"engines": {
+		"node": ">=24"
+	},
 	"preferGlobal": true,
 	"files": [
 		"./cli.js",
@@ -24,18 +27,12 @@
 		"cli",
 		"utility"
 	],
-	"dependencies": {
-		"arg": "^5.0.2",
-		"has-emoji": "^2.0.0",
-		"make-dir": "^3.1.0",
-		"picocolors": "^1.0.0"
-	},
 	"devDependencies": {
-		"@types/node": "^18.11.7",
-		"del": "^7.0.0",
-		"execa": "^6.1.0",
-		"prettier": "^2.7.1",
-		"typescript": "^4.8.4"
+		"@types/node": "^25.6.0",
+		"del": "^8.0.1",
+		"execa": "^9.6.1",
+		"prettier": "^3.8.3",
+		"typescript": "^6"
 	},
 	"prettier": {
 		"useTabs": true,

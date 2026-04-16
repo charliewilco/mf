@@ -3,11 +3,16 @@
 // @ts-check
 
 import { makeFile } from "./index.js";
-import arg from "arg";
+import { parseArgs } from "node:util";
 
-const args = arg({
-	"--help": Boolean,
-	"-h": "--help",
+const args = parseArgs({
+	allowPositionals: true,
+	options: {
+		help: {
+			type: "boolean",
+			short: "h",
+		},
+	},
 });
 
 let help = `
@@ -20,12 +25,12 @@ let help = `
 `;
 
 const app = async () => {
-	if (args["--help"] || args["-h"]) {
+	if (args.values.help) {
 		console.log(help);
 		return;
 	}
 
-	await makeFile(args._);
+	await makeFile(args.positionals);
 };
 
 app();

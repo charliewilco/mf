@@ -1,7 +1,7 @@
 // @ts-check
-import fs from "fs/promises";
-import { dirname } from "path";
-import pc from "picocolors";
+import fs from "node:fs/promises";
+import { dirname } from "node:path";
+import { styleText } from "node:util";
 
 /**
  * @param {string} file
@@ -13,27 +13,27 @@ export async function ensureFile(file) {
 		if (stat.isFile()) {
 			return;
 		}
-	} catch (err) {}
-
-	const dir = dirname(file);
-
-	try {
-		const stat = await fs.stat(dir);
-		if (!stat.isDirectory()) {
-			// parent is not a directory
-			// This is just to cause an internal ENOTDIR error to be thrown
-			await fs.readdir(dir);
-		}
 	} catch (err) {
-		if (err && err.code === "ENOENT") {
-			const { default: makeDir } = await import("make-dir");
-			await makeDir(dir);
-		} else {
-			throw new Error(err);
+		if (typeof err !== "object" || err === null || !("code" in err) || err.code !== "ENOENT") {
+			throw err;
 		}
 	}
 
-	fs.writeFile(file, "");
+	const dir = dirname(file);
+
+	await fs.mkdir(dir, { recursive: true });
+
+	await fs.writeFile(file, "");
+}
+
+const regex = /\p{RGI_Emoji}/v;
+
+/**
+ * @param {string} string
+ *
+ */
+export function hasEmoji(string) {
+	return regex.test(string);
 }
 
 /**
@@ -41,9 +41,7 @@ export async function ensureFile(file) {
  *
  */
 export async function makeFile(files) {
-	const { red, yellow } = pc.createColors();
-	const hasEmoji = await import("has-emoji");
-	const enabledEmoji = hasEmoji.default("🌈");
+	const enabledEmoji = hasEmoji("🌈");
 
 	const msg = enabledEmoji ? "created! 🌈 👍" : "created";
 
@@ -52,12 +50,12 @@ export async function makeFile(files) {
 		files.map(async (f) => {
 			try {
 				await ensureFile(f);
-				process.stdout.write(`${yellow(f)} ${msg}\n`);
+				process.stdout.write(`${styleText("yellow", f)} ${msg}\n`);
 			} catch (err) {
 				const errorMessage = enabledEmoji ? "🚦" : ":(";
-				process.stdout.write(red(`${err} ${errorMessage}`));
+				process.stdout.write(styleText("red", `${err} ${errorMessage}`));
 				process.exit();
 			}
-		})
+		}),
 	);
 }
