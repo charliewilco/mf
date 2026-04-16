@@ -6,8 +6,8 @@ import { makeFile } from "./index.js";
 import arg from "arg";
 
 const args = arg({
-  "--help": Boolean,
-  "-h": "--help",
+	"--help": Boolean,
+	"-h": "--help",
 });
 
 let help = `
@@ -20,12 +20,12 @@ let help = `
 `;
 
 const app = async () => {
-  if (args["--help"] || args["-h"]) {
-    console.log(help);
-    return;
-  }
+	if (args["--help"] || args["-h"]) {
+		console.log(help);
+		return;
+	}
 
-  await makeFile(args._);
+	await makeFile(args._);
 };
 
 app();
