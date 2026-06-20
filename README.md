@@ -41,7 +41,17 @@ What I'm attempting to do here is to make a little CLI utility to do something l
 
 ## Development
 
-This project is using JavaScript purely and uses `// @ts-check` to validate the project. This removes the need for a compliation step and makes testing and publishing much easier.
+This project uses plain JavaScript with `// @ts-check` and `jsconfig.json` for static checking. There is no compilation step.
+
+```sh
+npm ci
+npm run format:check
+npm run check
+npm test
+npm pack --dry-run
+```
+
+`format:check` runs Prettier in check mode. `check` runs TypeScript against the JavaScript source without emitting files.
 
 ## License
 
