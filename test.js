@@ -6,7 +6,7 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { ensureFile, hasEmoji } from "./index.js";
+import { ensureFile, hasEmoji, makeFile } from "./index.js";
 
 const CLI_PATH = fileURLToPath(new URL("./cli.js", import.meta.url));
 
@@ -62,6 +62,17 @@ describe("hasEmoji", () => {
 });
 
 describe("ensureFile", () => {
+	test("creates files in the current directory", async () => {
+		await withTempDir(async (tempDir) => {
+			const file = path.join(tempDir, "index.js");
+
+			await ensureFile(file);
+
+			const stat = await fs.stat(file);
+			assert.equal(stat.isFile(), true);
+		});
+	});
+
 	test("creates nested files recursively", async () => {
 		await withTempDir(async (tempDir) => {
 			const file = path.join(tempDir, "components", "Button", "index.js");
@@ -81,6 +92,43 @@ describe("ensureFile", () => {
 			await ensureFile(file);
 
 			assert.equal(await fs.readFile(file, "utf8"), "const preserved = true;\n");
+		});
+	});
+
+	test("rejects when the target path is an existing directory", async () => {
+		await withTempDir(async (tempDir) => {
+			const directory = path.join(tempDir, "existing-directory");
+			await fs.mkdir(directory);
+
+			await assert.rejects(ensureFile(directory), { code: "EISDIR" });
+		});
+	});
+});
+
+describe("makeFile", () => {
+	test("creates every requested file", async () => {
+		await withTempDir(async (tempDir) => {
+			const files = [
+				path.join(tempDir, "src", "index.js"),
+				path.join(tempDir, "src", "components", "Button.js"),
+				path.join(tempDir, "test", "index.test.js"),
+			];
+
+			await makeFile(files);
+
+			for (const file of files) {
+				const stat = await fs.stat(file);
+				assert.equal(stat.isFile(), true);
+			}
+		});
+	});
+
+	test("rejects filesystem errors", async () => {
+		await withTempDir(async (tempDir) => {
+			const blocker = path.join(tempDir, "blocker");
+			await fs.writeFile(blocker, "");
+
+			await assert.rejects(makeFile([path.join(blocker, "child.js")]), { code: "ENOTDIR" });
 		});
 	});
 });
@@ -108,6 +156,9 @@ describe("cli", () => {
 			assert.equal(code, 0);
 			assert.equal(stderr, "");
 			assert.deepEqual(createdFiles.sort(), ["bar.js", "baz.js", "foo.js"]);
+			for (const file of files) {
+				assert.equal(stdout.includes(`${file} created!`), true);
+			}
 			assert.match(stdout, /🌈/u);
 			assert.match(stdout, /👍/u);
 		});
@@ -133,6 +184,24 @@ describe("cli", () => {
 			assert.equal(stdout, "");
 			assert.match(stderr, /ENOTDIR/u);
 			assert.match(stderr, /🚦/u);
+		});
+	});
+
+	test("does not print success output when a requested file fails", async () => {
+		await withTempDir(async (tempDir) => {
+			const blocker = path.join(tempDir, "blocker");
+			await fs.writeFile(blocker, "");
+
+			const { code, stdout, stderr } = await runCli(
+				["./valid.js", path.join(blocker, "child.js")],
+				{
+					cwd: tempDir,
+				},
+			);
+
+			assert.equal(code, 1);
+			assert.equal(stdout, "");
+			assert.match(stderr, /ENOTDIR/u);
 		});
 	});
 });
