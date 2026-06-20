@@ -18,6 +18,7 @@
 		"mf": "./cli.js"
 	},
 	"scripts": {
+		"check": "tsc -p jsconfig.json",
 		"lint": "npx prettier . --check",
 		"test": "node --test test.js",
 		"_bin": "node ./cli.js"
@@ -29,8 +30,6 @@
 	],
 	"devDependencies": {
 		"@types/node": "^25.6.0",
-		"del": "^8.0.1",
-		"execa": "^9.6.1",
 		"prettier": "^3.8.3",
 		"typescript": "^6"
 	},

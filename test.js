@@ -3,12 +3,14 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { execFile } from "node:child_process";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { execa } from "execa";
+import { promisify } from "node:util";
 import { ensureFile, hasEmoji } from "./index.js";
 
 const CLI_PATH = fileURLToPath(new URL("./cli.js", import.meta.url));
+const execFileAsync = promisify(execFile);
 
 /**
  * Run filesystem tests in an isolated temp directory and always clean up afterward.
@@ -70,7 +72,7 @@ describe("ensureFile", () => {
 
 describe("cli", () => {
 	test("prints help", async () => {
-		const { stdout } = await execa(process.execPath, [CLI_PATH, "--help"]);
+		const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, "--help"]);
 
 		assert.match(stdout, /Usage/u);
 		assert.match(stdout, /\$ mf <input>/u);
@@ -80,7 +82,7 @@ describe("cli", () => {
 		await withTempDir(async (tempDir) => {
 			// Use relative paths here to exercise the same workflow as a real CLI invocation.
 			const files = ["./dist/foo.js", "./dist/bar.js", "./dist/baz.js"];
-			const { stdout } = await execa(process.execPath, [CLI_PATH, ...files], {
+			const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, ...files], {
 				cwd: tempDir,
 			});
 
