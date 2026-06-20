@@ -2,8 +2,8 @@
 "use strict";
 // @ts-check
 
-import { makeFile } from "./index.js";
-import { parseArgs } from "node:util";
+import { hasEmoji, makeFile } from "./index.js";
+import { parseArgs, styleText } from "node:util";
 
 const args = parseArgs({
 	allowPositionals: true,
@@ -16,7 +16,7 @@ const args = parseArgs({
 });
 
 // Keep help text inline with the CLI so usage changes stay close to the parser config.
-let help = `
+const help = `
   Usage
     $ mf <input>
 
@@ -27,7 +27,24 @@ let help = `
 
 if (args.values.help) {
 	console.log(help);
+} else if (args.positionals.length === 0) {
+	console.error(help);
+	process.exitCode = 1;
 } else {
-	// Forward raw positional paths directly to the library entrypoint.
-	await makeFile(args.positionals);
+	try {
+		await makeFile(args.positionals);
+
+		const enabledEmoji = hasEmoji("🌈");
+		const message = enabledEmoji ? "created! 🌈 👍" : "created";
+
+		for (const file of args.positionals) {
+			process.stdout.write(`${styleText("yellow", file)} ${message}\n`);
+		}
+	} catch (err) {
+		const enabledEmoji = hasEmoji("🌈");
+		const errorMessage = enabledEmoji ? "🚦" : ":(";
+
+		process.stderr.write(styleText("red", `${err} ${errorMessage}\n`));
+		process.exitCode = 1;
+	}
 }

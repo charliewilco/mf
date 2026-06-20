@@ -1,7 +1,6 @@
 // @ts-check
 import fs from "node:fs/promises";
 import { dirname } from "node:path";
-import { styleText } from "node:util";
 
 /**
  * @param {string} file
@@ -45,22 +44,5 @@ export function hasEmoji(string) {
  *
  */
 export async function makeFile(files) {
-	const enabledEmoji = hasEmoji("🌈");
-
-	const msg = enabledEmoji ? "created! 🌈 👍" : "created";
-
-	// Process every requested path independently so one nested file does not block the others.
-	await Promise.all(
-		files.map(async (f) => {
-			try {
-				await ensureFile(f);
-				process.stdout.write(`${styleText("yellow", f)} ${msg}\n`);
-			} catch (err) {
-				// Keep CLI failures user-visible and exit immediately once a path cannot be created.
-				const errorMessage = enabledEmoji ? "🚦" : ":(";
-				process.stdout.write(styleText("red", `${err} ${errorMessage}`));
-				process.exit();
-			}
-		}),
-	);
+	await Promise.all(files.map(ensureFile));
 }

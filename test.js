@@ -6,11 +6,26 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
 import { ensureFile, hasEmoji } from "./index.js";
 
 const CLI_PATH = fileURLToPath(new URL("./cli.js", import.meta.url));
-const execFileAsync = promisify(execFile);
+
+/**
+ * @param {string[]} args
+ * @param {{ cwd?: string }} [options]
+ * @returns {Promise<{ code: number, stdout: string, stderr: string }>}
+ */
+async function runCli(args, options = {}) {
+	return await new Promise((resolve) => {
+		execFile(process.execPath, [CLI_PATH, ...args], options, (error, stdout, stderr) => {
+			resolve({
+				code: typeof error?.code === "number" ? error.code : 0,
+				stdout,
+				stderr,
+			});
+		});
+	});
+}
 
 /**
  * Run filesystem tests in an isolated temp directory and always clean up afterward.
@@ -72,25 +87,52 @@ describe("ensureFile", () => {
 
 describe("cli", () => {
 	test("prints help", async () => {
-		const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, "--help"]);
+		const { code, stdout, stderr } = await runCli(["--help"]);
 
+		assert.equal(code, 0);
 		assert.match(stdout, /Usage/u);
 		assert.match(stdout, /\$ mf <input>/u);
+		assert.equal(stderr, "");
 	});
 
 	test("creates requested files and reports success", async () => {
 		await withTempDir(async (tempDir) => {
 			// Use relative paths here to exercise the same workflow as a real CLI invocation.
 			const files = ["./dist/foo.js", "./dist/bar.js", "./dist/baz.js"];
-			const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, ...files], {
+			const { code, stdout, stderr } = await runCli(files, {
 				cwd: tempDir,
 			});
 
 			const createdFiles = await fs.readdir(path.join(tempDir, "dist"));
 
+			assert.equal(code, 0);
+			assert.equal(stderr, "");
 			assert.deepEqual(createdFiles.sort(), ["bar.js", "baz.js", "foo.js"]);
 			assert.match(stdout, /🌈/u);
 			assert.match(stdout, /👍/u);
+		});
+	});
+
+	test("prints help and exits nonzero when no file is provided", async () => {
+		const { code, stdout, stderr } = await runCli([]);
+
+		assert.equal(code, 1);
+		assert.equal(stdout, "");
+		assert.match(stderr, /Usage/u);
+		assert.match(stderr, /\$ mf <input>/u);
+	});
+
+	test("prints filesystem errors to stderr and exits nonzero", async () => {
+		await withTempDir(async (tempDir) => {
+			const blocker = path.join(tempDir, "blocker");
+			await fs.writeFile(blocker, "");
+
+			const { code, stdout, stderr } = await runCli([path.join(blocker, "child.js")]);
+
+			assert.equal(code, 1);
+			assert.equal(stdout, "");
+			assert.match(stderr, /ENOTDIR/u);
+			assert.match(stderr, /🚦/u);
 		});
 	});
 });
