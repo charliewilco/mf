@@ -29,7 +29,7 @@
 		"utility"
 	],
 	"devDependencies": {
-		"@types/node": "^25.6.0",
+		"@types/node": "^26.0.0",
 		"prettier": "^3.8.3",
 		"typescript": "^6"
 	},
