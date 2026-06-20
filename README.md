@@ -31,6 +31,17 @@ Output:
 npx @charliewilco/mf-cli hello.ts
 ```
 
+### Building a single executable
+
+Node's single executable app builder is available in Node `>=25.5`. To build a standalone `mf` binary from this repository:
+
+```sh
+npm run build:sea
+./dist/mf ./src/components/Button.js
+```
+
+The generated binary is written to `dist/mf` or `dist/mf.exe` on Windows. The build keeps the published package runtime requirement at Node `>=24`; only the single-executable build step requires Node `>=25.5`.
+
 ## Rationale
 
 One command line thing I need to do all the time is make a file. In Atom when you make a new file, it'll make a new directory if it doesn't exist. For example if you're in Atom and make `src/components/Button.js` and the `components` directory doesn't exist, it'll just create it by default.
