@@ -19,7 +19,7 @@
 	},
 	"scripts": {
 		"check": "tsc -p jsconfig.json",
-		"lint": "npx prettier . --check",
+		"format:check": "npx prettier . --check",
 		"test": "node --test test.js",
 		"_bin": "node ./cli.js"
 	},
